@@ -1,3 +1,5 @@
+import "reflect-metadata"
+import connectDB from "./config/database";
 import express, { Application, Request, Response } from 'express'
 import morgan from 'morgan';
 import swaggerUi from "swagger-ui-express"
@@ -24,6 +26,14 @@ app.use(
 
 app.use(Router);
 
-app.listen(PORT, () => {
-    console.log("Server is running on port ", PORT);
-})
+connectDB
+  .initialize()
+  .then(() => {
+    app.listen(PORT, () => {
+      console.log("Server is running on port ", PORT);
+    });
+  })
+  .catch((err) => {
+      console.error(`Unable to connect to db`, err);
+      process.exit(1)
+  });
