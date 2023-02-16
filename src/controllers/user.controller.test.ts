@@ -1,6 +1,5 @@
 import UserController from "./user.controller";
 import *  as UserRepository from "../repositories/user.repository"
-import { generateUserData } from "../../test/utils/generate";
 
 afterEach(() => {
     jest.resetAllMocks();
